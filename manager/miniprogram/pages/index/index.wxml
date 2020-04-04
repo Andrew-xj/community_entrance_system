@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="uploader">
+    <navigator url="../statistics/statistics" open-type="navigate" class="uploader-text">
+      <text>近况统计</text>
+    </navigator>
+  </view>
+
+  <view class="uploader">
+    <navigator url="../query/query" open-type="navigate" class="uploader-text">
+      <text>记录查询</text>
+    </navigator>
+  </view>
+  
+  <view class="uploader">
+    <navigator url="../scan/scan" open-type="navigate" class="uploader-text">
+      <text>门禁扫码</text> 
+    </navigator>
+  </view>
+
+
+  <view class='uploader'>
+    <navigator url="../register/register" opeen-type="navigate" class="uploader-text">
+      <text>信息录入</text>
+    </navigator>
+  </view>
+
+</view>

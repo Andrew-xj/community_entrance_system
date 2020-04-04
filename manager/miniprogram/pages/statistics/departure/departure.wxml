@@ -1,0 +1,11 @@
+<view>
+  <view class='todaysdetails'>
+    <text >今日出入情况</text>
+  </view>
+
+  <view class='history' style="margin-top:5%; padding-bottom:100%; margin-left:40rpx; margin-right:40rpx">
+    <view>
+    
+    </view>
+  </view>
+</view>

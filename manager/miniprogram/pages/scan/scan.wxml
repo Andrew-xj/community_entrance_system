@@ -1,0 +1,30 @@
+<!--camera
+  mode="scanCode"
+  device-position="back"
+  binderror="error"
+  style="width:80%;heightL300px"
+  bindscancode="takeCode"
+  scan-area="[0,0,200,200]">
+</camera-->
+
+
+
+
+
+<view class="container">
+  <view class="view">
+    <button type="primary" bindtap="saoma" id="scan">S C A N</button>
+  </view>
+  <view class="list-item">
+    <text class="list-item">姓名：</text>
+    <view>{{name}}</view>
+  </view>
+  <view class="list-item">
+    <text class="list-item">住址：</text>
+    <view>{{address}}</view>
+  </view>
+  <view> 
+    <text class="list-item">今日剩余出入次数：</text>
+    <view>{{time_left}}</view>
+  </view>
+</view>

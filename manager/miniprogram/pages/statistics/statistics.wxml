@@ -1,0 +1,28 @@
+<view>
+
+
+  <view class='condition' style="margin-top:35rpx; margin-left:35rpx; margin-right:35rpx">
+
+    <view  style="margin-top:2%; margin-left:2%">
+      <text>今日出行情况</text>
+    </view>
+
+    <view style="margin-top:2%;margin:3%">
+      <text>进入人数:</text>
+    </view>
+
+    <view style="margin-top:2%;margin:3%">
+      <text>离开人数:</text>
+    </view>
+
+  </view>
+
+
+  <view class="details">
+
+    <navigator url="./departure/departure" open-type="navigate" class="navigator" style='text-align:center'>
+      <text>查看今日出入详情</text>
+    </navigator>
+    
+  </view>
+</view>

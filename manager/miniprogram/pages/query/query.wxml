@@ -1,0 +1,40 @@
+<view>
+
+  <view class='content'>
+
+    <view  class='inputview' style="flex:1;margin-top:60rpx;margin-left:30rpx">
+      <input class="input" style='text-align:center' type="number" placeholder="楼号" bindinput="searchbuilding" />
+    </view>
+
+
+    <view  class='inputview' style="flex:1;margin-top:60rpx;margin-left:30rpx">
+      <input class="input" style='text-align:center' type="number" placeholder="单元" bindinput="unit" />
+    </view>
+
+
+    <view class="inputview" style="flex:1;margin-top:60rpx;margin-left:30rpx;margin-right:30rpx">
+      <input class="input" style='text-align:center' type="number" placeholder="室" bindinput="room"/>
+    </view>
+  </view>
+
+
+
+  <view class='searchbutton'>
+    <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 80rpx; border-radius: 40rpx" type="primary" bindtap="chaxun">查询</button>
+  </view>
+
+
+  <view style='text-align:center;margin-top:40rpx;'>
+    <text>历史记录</text>
+  </view>
+
+  <view class='history' style="margin-top:5%; padding-bottom:90%; margin-left:40rpx; margin-right:40rpx">
+    <view></view>
+  </view>
+
+</view>
+<!--view class="menu">
+<navigator url="" class="menu-item">
+<text class="menu-name">商品大全</text>
+</navigator>
+</view-->
