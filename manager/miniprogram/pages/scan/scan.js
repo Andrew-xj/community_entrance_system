@@ -44,29 +44,3 @@ Page({
     })
   }
 })
-
-// let app = getApp();
-// Page({
-//   data: {
-//     show:"",
-//   },
-//   onLoad() {
-//   },
-//   scan() {
-//     var that = this;
-//     var show;
-//     wx.scanCode({
-//       success: (res) => {
-//         console.log("扫码结果");
-//         console.log(res);
-//         this.show = "result:" + res.result + " type" + res.scanType;
-//         that.setData({
-//           show: this.show
-//         })
-//       },
-//       fail: (res) => {
-//         console.log(res);
-//       }
-//     })
-//   }
-// })

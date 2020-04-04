@@ -1,6 +1,6 @@
 <view>
   
-  <view class='profile' sytle='flex:1; padding-bottom:40%'>
+  <!--view class='profile' sytle='flex:1; padding-bottom:50%'>
     <button
         open-type="getUserInfo" 
         bindgetuserinfo="onGetUserInfo"
@@ -8,24 +8,29 @@
         style="background-image: url({{avatarUrl}})"
         size="default"
       ></button>
-    </view>
+    </view-->
+  <view class="imagesize" style="margin-top:8%">
+    <image src="{{avatarUrl}}" class="in-image"></image>
+  </view>
+  
+  
   <view class='content'>
 
-    <view  class='inputview' style="flex:1;margin-top:60rpx;margin-left:30rpx">
+    <view  class='inputview' style="flex:1; margin-top:100rpx; margin-left:30rpx; margin-right:30rpx">
       <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="姓名" bindinput="searchbuilding" />
     </view>
 
-    <view  class='inputview' style="flex:1;margin-top:60rpx;margin-left:30rpx">
+    <view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
       <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="住址" bindinput="searchbuilding" />
     </view>
 
-    <view  class='inputview' style="flex:1;margin-top:60rpx;margin-left:30rpx">
+    <view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
       <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="手机号码" bindinput="searchbuilding" />
     </view>
   </view>
 
 
-  <view class='searchbutton'>
+  <view class='searchbutton' style="margin-top:5%">
     <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 80rpx; border-radius: 40rpx" type="primary" bindtap="addinfo" >添加信息</button>
     <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 80rpx; border-radius: 40rpx" type="primary" bindtap="scan">扫描二维码</button>
   </view>
