@@ -5,7 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
+    action: true
+  },
 
+  exit: function(){
+    this.setData({
+      action: true
+    })
+  },
+
+  enter: function(){
+    this.setData({
+      action: false
+    })
   },
 
   /**
