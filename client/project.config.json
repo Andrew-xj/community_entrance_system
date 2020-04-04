@@ -47,6 +47,14 @@
 					"id": -1,
 					"name": "userinfo",
 					"pathName": "pages/userinfo/userinfo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/record/record",
+					"pathName": "pages/record/record",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -1,2 +1,12 @@
 <!--pages/record/record.wxml-->
-<text>pages/record/record.wxml</text>
+<view class='background'>
+  <view class='title'>
+    <text>近期出行记录</text>
+  </view>
+  <view class='records'>
+  <block wx:for="{{records}}" wx:key="{{item._id}}"></block>
+    <view class='record'>
+      <text>{{item.date}} 星期{{item.day}} 于 {{item.time}} {{item.action}}</text>
+    </view>
+  </view>
+</view>
