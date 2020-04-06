@@ -1,0 +1,17 @@
+<!--pages/qrcode/qrcode.wxml-->
+<view class='background'>
+	<view class='instruction'>
+		<text>两日内您已出入小区</text>
+		<view class='number'> {{count}} </view>
+		<text>次</text>
+	</view>
+	<view class='qrcode_area'>
+		<view class='btn'>
+			<button class='{{action?"exit":"enter"}}' bindtap='exit'>出门码</button>
+			<button class='{{!action?"exit":"enter"}}' bindtap='enter'>进门码</button>
+		</view>
+		<view class='qrcode'>
+
+		</view>
+	</view>
+</view>

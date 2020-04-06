@@ -1,0 +1,30 @@
+<!--pages/userinfo/userinfo.wxml-->
+<view class='background'>
+	<view class='top'>
+		<view class='avatar'>
+			<open-data type="userAvatarUrl"></open-data>
+		</view>
+	</view>
+	<view class='middle'>
+		<view class='bar'>
+			<view class='text'>姓名：</view>
+			<input class="input" auto-focus placeholder="将会获取焦点" />
+		</view>
+		<view class='bar'>
+			<view class='text'>住址：</view>
+			<input class="input" auto-focus placeholder="将会获取焦点" />
+		</view>
+		<view class='bar'>
+			<view class='text'>手机：</view>
+			<input class="input" auto-focus placeholder="将会获取焦点" />
+		</view>
+		<view class='bar'>
+			<view class='text'>其他：</view>
+			<input class="input" auto-focus placeholder="将会获取焦点" />
+		</view>
+	</view>
+	<view class='bottom'>
+		<button class='btn' bindtap='save'>保存</button>
+		<button class='btn' bindtap='qr'>二维码</button>
+	</view>
+</view>
