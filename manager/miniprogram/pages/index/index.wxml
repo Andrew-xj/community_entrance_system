@@ -1,29 +1,33 @@
 <!--index.wxml-->
-<view class="container">
+<view class="inacolumn">
 
-  <view class="uploader">
-    <navigator url="../statistics/statistics" open-type="navigate" class="uploader-text">
-      <text>近况统计</text>
-    </navigator>
+
+  <view class="inarow" style="margin:26% 5% 20%">
+    <view class="square" hover-class="hover" style="margin-right:70rpx;">
+      <navigator url="../statistics/statistics" open-type="navigate" class="navitext">
+        <text>近况\n统计</text>
+      </navigator>
+    </view>
+
+    <view class="square" hover-class="hover">
+      <navigator url="../query/query" open-type="navigate" class="navitext">
+        <text>记录\n查询</text>
+      </navigator>
+    </view>
+  </view>  
+
+
+  <view class="inarow">
+    <view class="square" hover-class="hover" style="margin-right:70rpx">
+      <navigator url="../scan/scan" open-type="navigate" class="navitext">
+        <text>门禁\n扫码</text> 
+      </navigator>
+    </view>
+
+    <view class="square" hover-class="hover">
+      <navigator url="../register/register" opeen-type="navigate" class="navitext">
+        <text>信息\n录入</text>
+      </navigator>
+    </view>
   </view>
-
-  <view class="uploader">
-    <navigator url="../query/query" open-type="navigate" class="uploader-text">
-      <text>记录查询</text>
-    </navigator>
-  </view>
-  
-  <view class="uploader">
-    <navigator url="../scan/scan" open-type="navigate" class="uploader-text">
-      <text>门禁扫码</text> 
-    </navigator>
-  </view>
-
-
-  <view class='uploader'>
-    <navigator url="../register/register" opeen-type="navigate" class="uploader-text">
-      <text>信息录入</text>
-    </navigator>
-  </view>
-
 </view>
