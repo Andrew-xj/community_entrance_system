@@ -6,6 +6,7 @@ Page({
     build: '',
     room: '',
     unit: '',
+    name:'',
   },
 
 
@@ -22,11 +23,17 @@ Page({
   unit: function (e) {
     this.data.unit = e.detail.value;
   },
-  /**
-   * 监听登录按钮
-   */
+
+  name: function(e) {
+    this.data.name = e.detail.value;
+  },
+  
+
+  searchname: function(){
+    console.log('姓名：',this.data.name);
+  },
+
   chaxun: function () {
-    //打印收入账号和密码
     console.log('楼号: ', this.data.build);
     console.log('单元', this.data.unit);
     console.log('室: ', this.data.room);
