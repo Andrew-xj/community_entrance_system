@@ -41,6 +41,23 @@ Page({
       },
     })
   },
+
+  addinfo:function(){
+    const db = wx.cloud.database()
+    db.collection('person').add({
+      data:{
+        name:"周子杰",
+        building:2,
+        unit:3,
+        room:201,
+        done:false
+      },
+      success:function(res){
+        console.log(res)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
