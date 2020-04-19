@@ -16,14 +16,14 @@
     "borderStyle":"white",
     "list":[
       {
-        "pagePath":"pages/qrcode/qrcode",
-        "text":"二维码",
+        "pagePath":"pages/record/record",
+        "text":"出行记录",
         "iconPath":"",
         "selectedIconPath":""
       },
       {
-        "pagePath":"pages/record/record",
-        "text":"出行记录",
+        "pagePath":"pages/qrcode/qrcode",
+        "text":"二维码",
         "iconPath":"",
         "selectedIconPath":""
       },
