@@ -1,6 +1,7 @@
 // pages/userinfo/userinfo.js
 
 const db = wx.cloud.database()
+const _ = db.command
 
 Page({
 
@@ -29,15 +30,15 @@ Page({
         this.data.address.room != null) {
         db.collection('resident').add({
           data: {
-            "姓名": this.data.name,
-            "手机": this.data.phone,
-            "小区": this.data.neighbourhood,
-            "住址": {
-              "栋": this.data.address.block,
-              "单元": this.data.address.unit,
-              "室": this.data.address.room
+            "name": this.data.name,
+            "phone": this.data.phone,
+            "neighbourhood": this.data.neighbourhood,
+            "address": {
+              "block": this.data.address.block,
+              "unit": this.data.address.unit,
+              "room": this.data.address.room
             },
-            tag: false
+            "tag": false
           },
           success: function (res) {
             wx.showToast({
@@ -52,15 +53,15 @@ Page({
     else {
       db.collection('resident').doc(this.data.phone).set({
         data: {
-          "姓名": this.data.name,
-          "手机": this.data.phone,
-          "小区": this.data.neighbourhood,
-          "住址": {
-            "栋": this.data.address.block,
-            "单元": this.data.address.unit,
-            "室": this.data.address.room
+          "name": this.data.name,
+          "phone": this.data.phone,
+          "neighbourhood": this.data.neighbourhood,
+          "address": {
+            "block": this.data.address.block,
+            "unit": this.data.address.unit,
+            "room": this.data.address.room
           },
-          tag: false
+          "tag": false
         },
         success: function (res) {
           wx.showToast({
@@ -81,21 +82,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     db.collection('resident').where({
-      phone: _.neq(null)
+      phone: _.neq("")
     }).get({
       success: function(res){
-        this.setData({
-          name: res.data.name,
-          phone: res.data.phone,
-          neighbourhood: res.data.neighbourhood,
-          tag: res.data.tag,
-          docID: res.data._id
-        })
-        this.address.setData({
-          block: res.data.address.block,
-          unit: res.data.address.unit,
-          room: res.data.address.room
+        that.setData({
+          name: res.data[0].name,
+          phone: res.data[0].phone,
+          neighbourhood: res.data[0].neighbourhood,
+          tag: res.data[0].tag,
+          docID: res.data[0]._id,
+          address:{
+            block: res.data[0].address.block,
+            unit: res.data[0].address.unit,
+            room: res.data[0].address.room
+          }
         })
       }
     })
@@ -169,20 +171,32 @@ Page({
   },
 
   block: function (e) {
-    this.address.setData({
-      block: e.detail.value
+    this.setData({
+      address:{
+        block: e.detail.value,
+        unit: this.data.address.unit,
+        room: this.data.address.room
+      }
     })
   },
 
   unit: function (e) {
-    this.address.setData({
-      unit: e.detail.value
+    this.setData({
+      address: {
+        block: this.data.address.block,
+        unit: e.detail.value,
+        room: this.data.address.room
+      }
     })
   },
 
   room: function (e) {
-    this.address.setData({
-      room: e.detail.value
+    this.setData({
+      address: {
+        block: this.data.address.block,
+        unit: this.data.address.unit,
+        room: e.detail.value
+      }
     })
   }
 })

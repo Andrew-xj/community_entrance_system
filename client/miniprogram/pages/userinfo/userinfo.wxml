@@ -8,22 +8,22 @@
 	<view class='middle'>
 		<view class='bar'>
 			<view class='text'>姓名：</view>
-			<input class="input" bindinput="name" type="text" auto-focus placeholder="请输入您的姓名" />
+			<input class="input" value="{{name}}" bindinput="name" type="text" auto-focus placeholder="{{tag?'请输入您的姓名':name}}" />
 		</view>
 		<view class='bar'>
 			<view class='text'>手机：</view>
-			<input class="input" bindinput="phone" type="number" auto-focus placeholder="请输入手机号码" />
+			<input class="input" value="{{phone}}" bindinput="phone" type="number" auto-focus placeholder="{{tag?'请输入手机号码':phone}}" />
 		</view>
 		<view class='bar'>
 			<view class='text'>小区：</view>
-			<input class="input" bindinput="neighbourhood" type="text" auto-focus placeholder="请输入小区名称" />
+			<input class="input" value="{{neighbourhood}}" bindinput="neighbourhood" type="text" auto-focus placeholder="{{tag?'请输入小区名称':neighbourhood}}" />
 		</view>
 		<view class='bar_s'>
-			<input class="input_s" bindinput="block" type="number" auto-focus placeholder="例:1" />
+			<input class="input_s" value="{{address.block}}" bindinput="block" type="number" auto-focus placeholder="{{tag?'例:1':address.block}}" />
 			<view class='text_s1'>栋</view>
-			<input class="input_s" bindinput="unit" type="number" auto-focus placeholder="例:1" />
+			<input class="input_s" value="{{address.unit}}" bindinput="unit" type="number" auto-focus placeholder="{{tag?'例:1':address.unit}}" />
 			<view class='text_s2'>单元</view>
-			<input class="input_s" bindinput="room" type="number" auto-focus placeholder="例:101" />
+			<input class="input_s" value="{{address.room}}"bindinput="room" type="number" auto-focus placeholder="{{tag?'例:101':address.room}}" />
 			<view class='text_s1'>室</view>
 		</view>
 	</view>
