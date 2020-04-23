@@ -25,4 +25,8 @@
     </navigator>
     
   </view>
+  <view style="margin-top:10%">
+
+    <canvas canvas-id="columnCanvas" disable-scroll="true" class="canvas"></canvas>
+  </view>
 </view>

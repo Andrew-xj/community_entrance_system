@@ -52,9 +52,9 @@ Page({
   },
 
   chaxun: function () {
-    console.log('楼号: ', this.data.building);
-    console.log('单元', this.data.unit);
-    console.log('室: ', this.data.room);
+    console.log('楼号:', this.data.building);
+    console.log('单元:', this.data.unit);
+    console.log('室:', this.data.room);
 
     const db = wx.cloud.database()
     db.collection('person').where({
