@@ -51,6 +51,9 @@ Page({
         data: [65,54,86,71,56,93,20],
         
       }, ],
+      title:{
+        name:'出入人数统计',
+      },
       yAxis: {
         format: function (val) {
           return val ;

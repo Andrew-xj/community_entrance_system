@@ -17,15 +17,35 @@
   <view class='content'>
 
     <view  class='inputview' style="flex:1; margin-top:100rpx; margin-left:30rpx; margin-right:30rpx">
-      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="姓名" bindinput="searchbuilding" />
+      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="姓名" bindinput="name" />
     </view>
 
-    <view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
+
+
+  <view class='content_r' style="margin-top:80rpx;">
+
+    <view  class='inputview' style="flex:1; margin-left:30rpx">
+      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="楼号" bindinput="building" />
+    </view>
+
+
+    <view  class='inputview' style="flex:1; margin-left:30rpx">
+      <input class="input" style='height:75rpx;  margin-left:13rpx; text-align:left' type="number" placeholder="单元" bindinput="unit" />
+    </view>
+
+
+    <view class="inputview" style="flex:1; margin-left:30rpx;margin-right:30rpx">
+      <input class="input" style='height:75rpx;  margin-left:13rpx; text-align:left' type="number" placeholder="室" bindinput="room"/>
+    </view>
+  </view>
+
+
+    <!--view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
       <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="住址" bindinput="searchbuilding" />
-    </view>
+    </view-->
 
     <view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
-      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="手机号码" bindinput="searchbuilding" />
+      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="手机号码" bindinput="phonenumber" />
     </view>
   </view>
 

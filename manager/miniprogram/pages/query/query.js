@@ -11,7 +11,7 @@ Page({
   },
 
 
-  searchbuilding: function (e) {
+  building: function (e) {
     this.data.building = e.detail.value;
 
   },

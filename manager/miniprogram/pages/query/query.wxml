@@ -3,7 +3,7 @@
   <view class='content'>
 
     <view  class='inputview' style="flex:1;margin-top:30rpx;margin-left:30rpx">
-      <input class="input" style='height:82rpx; text-align:center' type="number" placeholder="楼号" bindinput="searchbuilding" />
+      <input class="input" style='height:82rpx; text-align:center' type="number" placeholder="楼号" bindinput="building" />
     </view>
 
 

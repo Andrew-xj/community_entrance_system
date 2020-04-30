@@ -9,8 +9,32 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    name:'',
+    building:'',
+    unit:'',
+    room:'',
+    phonenumber:''
   },
+
+  name: function (e) {
+    this.data.name = e.detail.value;
+  },
+  building: function (e) {
+    this.data.building = e.detail.value;
+  },
+  unit: function (e) {
+    this.data.unit = e.detail.value;
+  },
+  room: function (e) {
+    this.data.room = e.detail.value;
+  },
+  phonenumber: function (e) {
+    this.data.phonenumber = e.detail.value;
+  },
+
+
+
   saoma: function () {
     var that = this;
     var show;
@@ -46,10 +70,11 @@ Page({
     const db = wx.cloud.database()
     db.collection('person').add({
       data:{
-        name:"周子杰",
-        building:2,
-        unit:3,
-        room:201,
+        name:this.data.name,
+        building:this.data.building,
+        unit:this.data.unit,
+        room:this.data.room,
+        phonenumber:this.data.phonenumber,
         done:false
       },
       success:function(res){
