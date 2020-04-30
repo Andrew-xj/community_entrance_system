@@ -57,6 +57,13 @@
 					"pathName": "pages/qrcode/qrcode",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "info",
+					"pathName": "pages/userinfo/info/info",
+					"query": "fileID= cloud://helloworld-b0a682.6865-helloworld-b0a682-1257765374/薛骏_15214369706.png",
+					"scene": null
 				}
 			]
 		}

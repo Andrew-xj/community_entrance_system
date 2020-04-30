@@ -32,3 +32,4 @@
 		<button class='btn' bindtap='qr'>二维码</button>
 	</view>
 </view>
+<canvas style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas'></canvas>

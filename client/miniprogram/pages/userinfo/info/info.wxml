@@ -1,0 +1,5 @@
+<!--pages/userinfo/info/info.wxml-->
+
+<view class='background'>
+  <image mode='aspectFit' src="{{ImagePath}}"></image>
+</view>
