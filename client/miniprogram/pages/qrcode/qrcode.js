@@ -1,11 +1,17 @@
 // pages/qrcode/qrcode.js
+
+var QRCode = require('../../utils/qr-core.js')
+var qrcode = null;
+var that;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    action: true
+    action: true,
+    qrcodeWidth: 0
   },
 
   exit: function(){
@@ -24,7 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

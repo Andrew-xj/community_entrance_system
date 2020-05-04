@@ -87,11 +87,6 @@ Page({
                     icon: 'success',
                     duration: 2000
                   })
-                  setTimeout(function () {
-                    wx.reLaunch({
-                      url: '../userinfo/userinfo',
-                    })
-                  }, 1000)
                 }
               })
             }
@@ -146,11 +141,6 @@ Page({
             icon: 'success',
             duration: 2000
           })
-          setTimeout(function () {
-            wx.reLaunch({
-              url: '../userinfo/userinfo',
-            })
-          }, 1000)
         }
       })
     }
