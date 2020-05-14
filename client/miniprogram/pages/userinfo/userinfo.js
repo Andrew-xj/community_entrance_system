@@ -156,11 +156,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const rate = wx.getSystemInfoSync().windowWidth / 750
-    var qrcodeWidth = rate * 400
-    this.setData({
-      qrcodeWidth: qrcodeWidth
-    })
     var that = this
     db.collection('resident').where({
       phone: _.neq("")
