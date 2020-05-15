@@ -17,8 +17,9 @@ Page({
     qrcodeWidth: 0,
     rest: 0,
     info: null,
-    canOut:true,
-    identifier: ''
+    canOut: true,
+    identifier: '',
+    access_token: '',
   },
 
   exit: function () {
@@ -38,15 +39,15 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    var out;
     db.collection('resident').where({
       phone: _.neq("")
     }).get({
       success: function (res) {
-        var identifier = that.createNonceStr();
         that.setData({
           info: res.data[0],
-          identifier: identifier
         })
+        var identifier = that.createNonceStr();
         var time = util.formatTime(new Date());
         var date = time.split(' ')[0];
         time = time.split(' ')[1];
@@ -55,17 +56,34 @@ Page({
         if (info.address.block != null) {
           address += info.address.block + '栋';
         }
-        if(info.address.unit != null) {
+        if (info.address.unit != null) {
           address += info.address.unit + '单元'
         }
         if (info.address.room != null) {
           address += info.address.room + '室'
         }
         var content =
-          '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name + 
-          '\n手机: ' + info.phone + '\n住址: ' + address + 
+          '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
+          '\n手机: ' + info.phone + '\n住址: ' + address +
           "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier;
         that.createqrcode(content);
+        setTimeout(() => {
+          that.lookup(identifier);
+        }, 5000);
+        setInterval(() => {
+          identifier = that.createNonceStr();
+          time = util.formatTime(new Date());
+          date = time.split(' ')[0];
+          time = time.split(' ')[1];
+          content =
+            '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
+            '\n手机: ' + info.phone + '\n住址: ' + address +
+            "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier;
+          that.createqrcode(content);
+          setTimeout(() => {
+            that.lookup(identifier)
+          }, 5000);
+        }, 20000);
       }
     })
   },
@@ -111,6 +129,36 @@ Page({
    */
   onReady: function () {
 
+  },
+
+  lookup: function (identifier) {
+    //var identifier = 'tLqARWMePiC9UsY86YoTweO6Zjbk679';
+    wx.request({
+      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx59704a2a311ececb&secret=df9799a2d147f3a9278896cc39607eab',
+      header: {},
+      success: (res) => {
+        that.setData({
+          access_token: res.data.access_token
+        })
+        wx.request({
+          url: 'https://api.weixin.qq.com/tcb/databasequery?access_token=' + that.data.access_token,
+          data: {
+            env: 'scanner-8e7535',
+            query: 'db.collection(\"records\").where({identifier:\"' + identifier + '\"}).limit(10).get()'
+          },
+          method: "POST",
+          success: (res) => {
+            if (res.data.data.length == 1) {
+              wx.showToast({
+                title: '扫码成功',
+                icon: 'success',
+                duration: 2000
+              })
+            }
+          }
+        })
+      }
+    })
   },
 
   /**
