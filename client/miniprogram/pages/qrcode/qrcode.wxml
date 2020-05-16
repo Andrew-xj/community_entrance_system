@@ -6,9 +6,8 @@
 		<text>次</text>
 	</view>
 	<view class='qrcode_area'>
-		<view class='btn'>
-			<button class='{{action?"exit":"enter"}}' bindtap='exit'>出门码</button>
-			<button class='{{!action?"exit":"enter"}}' bindtap='enter'>进门码</button>
+		<view class='instruction_qrcode'>
+			当前显示的是：{{action?'出门码':'进门码'}}
 		</view>
 		<view class='qrcode'>
 			<canvas style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas'></canvas>

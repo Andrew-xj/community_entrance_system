@@ -6,6 +6,7 @@ var util = require('../../utils/util.js');
 var QRCode = require('../../utils/qr-core.js');
 var qrcode = null;
 var that;
+var upload = false;
 
 Page({
 
@@ -22,24 +23,12 @@ Page({
     access_token: '',
   },
 
-  exit: function () {
-    this.setData({
-      action: true
-    })
-  },
-
-  enter: function () {
-    this.setData({
-      action: false
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     that = this;
-    var out;
+
     db.collection('resident').where({
       phone: _.neq("")
     }).get({
@@ -47,43 +36,76 @@ Page({
         that.setData({
           info: res.data[0],
         })
-        var identifier = that.createNonceStr();
-        var time = util.formatTime(new Date());
-        var date = time.split(' ')[0];
-        time = time.split(' ')[1];
-        var info = that.data.info;
-        var address = info.neighbourhood;
-        if (info.address.block != null) {
-          address += info.address.block + '栋';
-        }
-        if (info.address.unit != null) {
-          address += info.address.unit + '单元'
-        }
-        if (info.address.room != null) {
-          address += info.address.room + '室'
-        }
-        var content =
-          '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
-          '\n手机: ' + info.phone + '\n住址: ' + address +
-          "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier;
-        that.createqrcode(content);
-        setTimeout(() => {
-          that.lookup(identifier);
-        }, 5000);
-        setInterval(() => {
-          identifier = that.createNonceStr();
-          time = util.formatTime(new Date());
-          date = time.split(' ')[0];
-          time = time.split(' ')[1];
-          content =
-            '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
-            '\n手机: ' + info.phone + '\n住址: ' + address +
-            "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier;
-          that.createqrcode(content);
-          setTimeout(() => {
-            that.lookup(identifier)
-          }, 5000);
-        }, 20000);
+        db.collection('ExitAndEnter').where({
+          Exit_or_Enter: "Exit"
+        }).get({
+          success: (res) => {
+            if (res.data.length != 0) {
+              that.setData({
+                action: false
+              })
+              var identifier = res.data[0].identifier;
+              var time = res.data[0].time;
+              var date = res.data[0].date;
+              var info = that.data.info;
+              var address = res.data[0].address;
+              var content =
+                '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
+                '\n手机: ' + info.phone + '\n住址: ' + address +
+                "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier + 
+                "\ninorout: in";
+              that.createqrcode(content);
+              setInterval(() => {
+                setTimeout(() => {
+                  that.lookup(identifier, info, date, time, address);
+                }, 5000);
+              }, 20000);
+            } else {
+              that.setData({
+                action: true
+              })
+              var identifier = that.createNonceStr();
+              var time = util.formatTime(new Date());
+              var date = time.split(' ')[0];
+              time = time.split(' ')[1];
+              var info = that.data.info;
+              var address = info.neighbourhood;
+              if (info.address.block != null) {
+                address += info.address.block + '栋';
+              }
+              if (info.address.unit != null) {
+                address += info.address.unit + '单元'
+              }
+              if (info.address.room != null) {
+                address += info.address.room + '室'
+              }
+              var content =
+                '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
+                '\n手机: ' + info.phone + '\n住址: ' + address +
+                "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier + 
+                '\ninorout: out';
+              that.createqrcode(content);
+              setTimeout(() => {
+                that.lookup(identifier, info, date, time, address);
+              }, 60000);
+              setInterval(() => {
+                identifier = that.createNonceStr();
+                time = util.formatTime(new Date());
+                date = time.split(' ')[0];
+                time = time.split(' ')[1];
+                content =
+                  '日期: ' + date + '\n时间: ' + time + '\n姓名: ' + info.name +
+                  '\n手机: ' + info.phone + '\n住址: ' + address +
+                  "\n能否出门: " + that.data.canOut + '\nidentifier: ' + identifier +
+                  '\ninorout: out';
+                that.createqrcode(content);
+                setTimeout(() => {
+                  that.lookup(identifier, info, date, time, address)
+                }, 60000);
+              }, 600000);
+            }
+          },
+        })
       }
     })
   },
@@ -131,8 +153,8 @@ Page({
 
   },
 
-  lookup: function (identifier) {
-    //var identifier = 'tLqARWMePiC9UsY86YoTweO6Zjbk679';
+  lookup: function (identifier, info, date, time, address) {
+    // identifier = 'CXQC5S8IVaLt5l9K9cxjhwrhgoMMqH';
     wx.request({
       url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx59704a2a311ececb&secret=df9799a2d147f3a9278896cc39607eab',
       header: {},
@@ -144,17 +166,57 @@ Page({
           url: 'https://api.weixin.qq.com/tcb/databasequery?access_token=' + that.data.access_token,
           data: {
             env: 'scanner-8e7535',
-            query: 'db.collection(\"records\").where({identifier:\"' + identifier + '\"}).limit(10).get()'
+            query: 'db.collection(\"records\").where({identifier:\"' + identifier + '\"}).limit(1).get()'
           },
           method: "POST",
           success: (res) => {
-            if (res.data.data.length == 1) {
-              wx.showToast({
-                title: '扫码成功',
-                icon: 'success',
-                duration: 2000
+            var jsdata = JSON.parse(res.data.data[0]);
+            if (res.data.data.length == 1 &&
+              upload == false &&
+              jsdata.inandout == 'out') {
+              db.collection('ExitAndEnter').add({
+                data: {
+                  address: address,
+                  name: info.name,
+                  phone: info.phone,
+                  date: date,
+                  time: time,
+                  Exit_or_Enter: 'Exit',
+                  identifier: identifier
+                },
+                success: (res) => {
+                  wx.showToast({
+                    title: '扫码成功',
+                    icon: 'success',
+                    duration: 2000
+                  })
+                  upload = true;
+                }
               })
-            }
+            }else if(res.data.data.length == 1 &&
+              upload == false &&
+              jsdata.inandout == 'in'){
+                db.collection('ExitAndEnter').where({
+                  identifier: identifier
+                }).get({
+                  success: (res) => {
+                    db.collection("ExitAndEnter").doc(res.data[0]._id).update({
+                      data:{
+                        Exit_or_Enter: 'Enter'
+                      },
+                      success: (res) => {
+                        wx.showToast({
+                          title: '扫码成功',
+                          icon: 'success',
+                          duration: 2000
+                        })
+                        upload = true;
+                        that.onLoad();
+                      }
+                    })
+                  }
+                })
+              }
           }
         })
       }
