@@ -3,15 +3,27 @@
     <button type="primary" bindtap="saoma" id="scan">S C A N</button>
   </view>
   <view class="list-item">
-    <text class="list-item">姓名：</text>
+    <!--text class="list-item">日期：</text-->
+    <view>{{date}}</view>
+  </view>
+  <view class="list-item">
+    <!--text class="list-item">时间：</text-->
+    <view>{{time}}</view>
+  </view>
+  <view class="list-item">
+    <!--text class="list-item">姓名：</text-->
     <view>{{name}}</view>
   </view>
   <view class="list-item">
-    <text class="list-item">住址：</text>
+    <!--text class="list-item">联系电话：</text-->
+    <view>{{phonenumber}}</view>
+  </view>
+  <view class="list-item">
+    <!--text class="list-item">住址：</text-->
     <view>{{address}}</view>
   </view>
   <view> 
-    <text class="list-item">今日剩余出入次数：</text>
-    <view>{{time_left}}</view>
+    <!--text class="list-item">能否出门</text-->
+    <view>{{access}}</view>
   </view>
 </view>
