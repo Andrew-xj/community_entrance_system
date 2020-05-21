@@ -2,7 +2,7 @@
 <view class='background'>
 	<view class='instruction'>
 		<text>两日内您已出入小区</text>
-		<view class='number'> {{count}} </view>
+		<view class='number'> {{rest}} </view>
 		<text>次</text>
 	</view>
 	<view class='qrcode_area'>
