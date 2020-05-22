@@ -1,8 +1,9 @@
 /* pages/qrcode/qrcode.wxss */
 
-.instruction{
-  width:100vw;
-  height:15vh;
+/* 上方提示信息范围 */
+.instruction {
+  width: 100vw;
+  height: 15vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -10,27 +11,30 @@
   font-size: 50rpx;
 }
 
-.number{
-  width:10vw;
-  height:6vh;
+/* 数字 */
+.number {
+  width: 10vw;
+  height: 6vh;
   border-bottom: 2rpx solid black;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.qrcode_area{
+/* 二维码区域 */
+.qrcode_area {
   height: 75vh;
-  width:90vw;
+  width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 
-.instruction_qrcode{
-  height:10vh;
-  width:100%;
+/* 二维码提示信息 */
+.instruction_qrcode {
+  height: 10vh;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -38,34 +42,17 @@
   font-size: 50rpx;
 }
 
-.exit{
-  border:2rpx solid black;
-  background-color: lightgreen;
-}
-
-.exit:not([size='mini'])
-{
-  width:35vw;
-}
-
-.enter{
-  border:2rpx solid black;
-}
-
-.enter:not([size='mini'])
-{
-  width:35vw;
-}
-
-.qrcode{
+/* 二维码 */
+.qrcode {
   height: 60vh;
-  width:100%;
+  width: 100%;
   background-color: white;
 }
 
-.background{
-  height:100vh;
-  width:100vw;
+/* 背景 */
+.background {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;

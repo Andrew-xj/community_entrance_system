@@ -26,8 +26,12 @@ Page({
     qrcodeWidth: 0,
   },
 
+  /**
+   * 数据保存函数--保存并上传用户信息
+   */
   save: function (e) {
-    that = this
+    that = this;
+    // 设置二维码预置参数
     const ctx = wx.createCanvasContext('canvas')
     const rate = wx.getSystemInfoSync().windowWidth / 750
     var qrcodeWidth = rate * 400
@@ -42,12 +46,13 @@ Page({
       colorLight: "white",
       correctLevel: QRCode.CorrectLevel.H
     })
-    if (this.data.tag) {
+    // 保存上传部分
+    if (this.data.tag) {  // 判断是否已经含有信息
       if (this.data.name != "" &&
         this.data.phone != null &&
         this.data.neighbourhood != "" &&
         this.data.address.block != null &&
-        this.data.address.room != null) {
+        this.data.address.room != null) {   // 判断输入内容是否符合条件
         // 生成二维码
         var content = "姓名：" + that.data.name
           + "\n手机：" + that.data.phone
@@ -56,10 +61,11 @@ Page({
         var fileName = that.data.name + '_' + that.data.phone + '.png'
         var ImagePath
         qrcode.makeCode(content)
+        // 将二维码导出成图片
         qrcode.exportImage(function (path) {
           console.log('path : ' + path)
           ImagePath = path
-          // 上传存储器
+          // 上传二维码图片到云存储器
           wx.cloud.uploadFile({
             cloudPath: fileName,
             filePath: ImagePath,
@@ -67,7 +73,7 @@ Page({
               that.setData({
                 fileID: res.fileID
               })
-              // 上传数据库
+              // 上传所有用户信息到云数据库
               db.collection('resident').add({
                 data: {
                   "name": that.data.name,
@@ -103,14 +109,17 @@ Page({
       var fileName = that.data.name + '_' + that.data.phone + '.png'
       var ImagePath;
       qrcode.makeCode(content)
+      // 二维码导出成图片
       qrcode.exportImage(function (path) {
         ImagePath = path
+        // 删除云存储器中原有的二维码图片
         wx.cloud.deleteFile({
           fileList: [that.data.fileID],
           success: res => {
           },
           fail: console.error
         })
+        // 上传新的二维码图片到云存储器
         wx.cloud.uploadFile({
           cloudPath: fileName,
           filePath: ImagePath,
@@ -121,7 +130,7 @@ Page({
           }
         })
       })
-      // 更新二维码图片
+      // 更新数据库中用户信息
       db.collection('resident').doc(this.data.docID).set({
         data: {
           "name": this.data.name,
@@ -146,6 +155,9 @@ Page({
     }
   },
 
+  /**
+   * 页面跳转函数--跳转至二维码显示页面
+   */
   qr: function (e) {
     wx.navigateTo({
       url: 'info/info?fileID=' + this.data.fileID,
@@ -156,95 +168,61 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
+    var that = this;
+    // 查询数据库中的用户信息
     db.collection('resident').where({
       phone: _.neq("")
     }).get({
       success: function (res) {
-        that.setData({
-          name: res.data[0].name,
-          phone: res.data[0].phone,
-          neighbourhood: res.data[0].neighbourhood,
-          tag: res.data[0].tag,
-          docID: res.data[0]._id,
-          address: {
-            block: res.data[0].address.block,
-            unit: res.data[0].address.unit,
-            room: res.data[0].address.room
-          },
-          fileID: res.data[0].fileID
-        })
+        if (res.data.length != 0) {   // 若查到数据，则保存数据
+          that.setData({
+            name: res.data[0].name,
+            phone: res.data[0].phone,
+            neighbourhood: res.data[0].neighbourhood,
+            tag: res.data[0].tag,
+            docID: res.data[0]._id,
+            address: {
+              block: res.data[0].address.block,
+              unit: res.data[0].address.unit,
+              room: res.data[0].address.room
+            },
+            fileID: res.data[0].fileID
+          })
+        }
       }
     })
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 获取姓名
    */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   name: function (e) {
     this.setData({
       name: e.detail.value
     })
   },
 
+  /**
+   * 获取手机号
+   */
   phone: function (e) {
     this.setData({
       phone: e.detail.value
     })
   },
 
+  /**
+   * 获取小区名
+   */
   neighbourhood: function (e) {
     this.setData({
       neighbourhood: e.detail.value
     })
   },
 
+  /**
+   * 获取楼号
+   */
   block: function (e) {
     this.setData({
       address: {
@@ -255,6 +233,9 @@ Page({
     })
   },
 
+  /**
+   * 获取单元号
+   */
   unit: function (e) {
     this.setData({
       address: {
@@ -265,6 +246,9 @@ Page({
     })
   },
 
+  /**
+   * 获取室号
+   */
   room: function (e) {
     this.setData({
       address: {

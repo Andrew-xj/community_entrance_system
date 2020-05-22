@@ -1,6 +1,7 @@
 /* pages/userinfo/info/info.wxss */
 
-.background{
+/* 背景 */
+.background {
   height: 100vh;
   width: 100vw;
   display: flex;
