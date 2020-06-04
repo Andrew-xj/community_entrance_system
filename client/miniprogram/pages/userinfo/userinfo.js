@@ -13,12 +13,12 @@ Page({
    */
   data: {
     name: "",
-    phone: null,
+    phone: '',
     neighbourhood: "",
     address: {
-      block: null,
-      unit: null,
-      room: null
+      block: '',
+      unit: '',
+      room: ''
     },
     tag: true,
     docID: "",
@@ -57,7 +57,9 @@ Page({
         var content = "姓名：" + that.data.name
           + "\n手机：" + that.data.phone
           + "\n小区：" + that.data.neighbourhood
-          + "\n详细住址：" + that.data.address.block + " 栋 " + that.data.address.unit + " 单元 " + that.data.address.room + " 室"
+          + "\n楼号：" + that.data.address.block 
+          + "\n单元：" + that.data.address.unit 
+          + "\n室号：" + that.data.address.room
         var fileName = that.data.name + '_' + that.data.phone + '.png'
         var ImagePath
         qrcode.makeCode(content)
@@ -103,9 +105,11 @@ Page({
     else {
       // 生成二维码
       var content = "姓名：" + that.data.name
-        + "\n手机：" + that.data.phone
-        + "\n小区：" + that.data.neighbourhood
-        + "\n详细住址：" + that.data.address.block + " 栋 " + that.data.address.unit + " 单元 " + that.data.address.room + " 室"
+      + "\n手机：" + that.data.phone
+      + "\n小区：" + that.data.neighbourhood
+      + "\n楼号：" + that.data.address.block 
+      + "\n单元：" + that.data.address.unit 
+      + "\n室号：" + that.data.address.room
       var fileName = that.data.name + '_' + that.data.phone + '.png'
       var ImagePath;
       qrcode.makeCode(content)
