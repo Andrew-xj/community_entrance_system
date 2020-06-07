@@ -1,9 +1,11 @@
 var wxCharts = require("../../util/wxcharts-min.js");
-
+var util=require('../../util/util.js')
 //定义记录初始屏幕宽度比例，便于初始化
+var cpreviousdate=new Array(7);
 var previousdate = new Array(7);
-
 var windowW = 0;
+var db = wx.cloud.database();
+var _ = db.command;
 
 Page({
 
@@ -11,16 +13,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    cpreviousdate:[],
+    count:1,
+    number:[],
+    cur_number:0
   },
 
-  adddays:function(dateStr,dayCount){
-    var strdate = dateStr;
-    var isdate = new Date(strdate.replace(/-/g, "/"));
-    isdate = new Date((isdate / 1000 + (86400 * dayCount)) * 1000);  
-    var pdate = isdate.getFullYear() + "/" + (isdate.getMonth() + 1) + "/" + (isdate.getDate());
-    return pdate;
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -43,28 +42,66 @@ Page({
     // var idays;
     // idays=Math.floor((currenttimestamp-date1)/(24*3600*1000));
     // console.log(idays);
-    var mydate=new Date().toLocaleDateString();
-    console.log(mydate)
-    mydate='2020/3/2';
+    //var mydate=util.formatTime(new Date());
+
+    //console.log(mydate)
     //console.log(mydate.replace(/-/g,"/"));
-    //var isdate=Date.parse(mydate);
-    //console.log(isdate);
+    // var isdate=Date.parse(mydate);
+    // console.log(isdate);
 
-
+    var curdate = new Date()
     for (var i=0;i<7;i++){
-      previousdate[i]=this.adddays(mydate,i-7);
-      previousdate[i]=previousdate[i].slice(5);
+      cpreviousdate[i]=new Date(curdate.getTime()+24*60*60*1000*(i-7))
+      cpreviousdate[i]=util.formatTime(cpreviousdate[i])
+      previousdate[i]=cpreviousdate[i].slice(5)
+      //previousdate[i]=this.adddays(mydate,i-7);
+      //previousdate[i]=d.setDate(d.getDate()+(i-7))
+      //previousdate[i]=util.formatTime(previousdate[i])
+      //previousdate[i]=previousdate[i].slice(5);
     }
-    console.log(previousdate);
+    this.setData({
+      cpreviousdate:cpreviousdate
+    })
+    var that = this
+    var cur_date = util.formatTime(curdate)
+    const db = wx.cloud.database()
+    db.collection('date').where({
+      date: cur_date
+    })
+      .get()
+      .then(res => {
+        if (res.data.length == 0) {
+        }
+        else{
+          console.log(res)
+          that.setData({
+            cur_number: res.data[0].count
+          })
+        }
+      })
+    console.log(cpreviousdate)
+    //console.log(previousdate)
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-
-    // columnCanvas
+  getnum:function(dates){
+    
+    var that=this
+    var number = []
+    var num_nd=null
+    const db=wx.cloud.database()
+    db.collection('date').where({
+      date:_.in(dates)
+    })
+    .get()
+    .then(res=>{
+		var data=res.data;
+		for (var i=0; i<dates.length; i++){
+			for (var j=0; j<data.length; j++){
+				if(data[j].date == dates[i]){
+					number.push(data[j].count)
+				}
+			}
+		}
+		console.log(number)
     new wxCharts({
       canvasId: 'columnCanvas',
       type: 'line',
@@ -72,12 +109,12 @@ Page({
       categories: previousdate,
       series: [{
         name: '人数',
-        data: [65,54,86,71,56,93,20],
-        
-      }, ],
+        //data: this.get_prenum(),
+        data: number,
+      },],
       yAxis: {
         format: function (val) {
-          return val ;
+          return val;
         },
         title: '出入人数统计',
         min: 0
@@ -91,9 +128,29 @@ Page({
       //     width: 15
       //   }
       // },
-      width: (375 * windowW),
-      height: (400 * windowW),
+      width: (360 * windowW),
+      height: (300 * windowW),
     });
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    // for (var i=0;i<7;i++){
+    //   this.getnum(this.data.cpreviousdate)
+    // }
+    this.getnum(this.data.cpreviousdate)
+    
+    //this.getnum(this.data.cpreviousdate[0])
+    //this.get_prenum(cpreviousdate),
+    // for(var i=0;i<7;i++){
+    //   number[i]=this.getnum(cpreviousdate[i])
+    // }
+    // columnCanvas
+
+    
 
 
   },

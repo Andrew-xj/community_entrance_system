@@ -1,57 +1,49 @@
 <view>
   
-  <!--view class='profile' sytle='flex:1; padding-bottom:50%'>
-    <button
-        open-type="getUserInfo" 
-        bindgetuserinfo="onGetUserInfo"
-        class="userinfo-avatar"
-        style="background-image: url({{avatarUrl}})"
-        size="default"
-      ></button>
-    </view-->
-  <view class="imagesize" style="margin-top:8%">
+
+  <view class="imagesize" style="margin-top:6%">
     <image src="{{avatarUrl}}" class="in-image"></image>
   </view>
   
   
   <view class='content'>
 
-    <view  class='inputview' style="flex:1; margin-top:100rpx; margin-left:30rpx; margin-right:30rpx">
-      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="姓名" bindinput="name" />
+    <view  class='inputview'  style="flex:1; margin-top:70rpx; margin-left:30rpx; margin-right:30rpx">
+      <input class="input" value="{{name}}" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="姓名" bindinput="name" />
+    </view>
+
+    <view  class='inputview' style="flex:1; margin-top:70rpx; margin-left:30rpx; margin-right:30rpx">
+      <input class="input" value="{{xiaoqu}}"style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="小区名称" bindinput="xiaoqu" />
+    </view>
+
+  <view class='content_r' style="margin-top:70rpx;">
+
+    <view  class='inputview' style="flex:1; margin-left:30rpx">
+      <input class="input" value="{{building}}"style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="楼号" bindinput="building" />
     </view>
 
 
-
-  <view class='content_r' style="margin-top:80rpx;">
-
     <view  class='inputview' style="flex:1; margin-left:30rpx">
-      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="楼号" bindinput="building" />
-    </view>
-
-
-    <view  class='inputview' style="flex:1; margin-left:30rpx">
-      <input class="input" style='height:75rpx;  margin-left:13rpx; text-align:left' type="number" placeholder="单元" bindinput="unit" />
+      <input class="input" value="{{unit}}"style='height:75rpx;  margin-left:13rpx; text-align:left' type="number" placeholder="单元" bindinput="unit" />
     </view>
 
 
     <view class="inputview" style="flex:1; margin-left:30rpx;margin-right:30rpx">
-      <input class="input" style='height:75rpx;  margin-left:13rpx; text-align:left' type="number" placeholder="室" bindinput="room"/>
+      <input class="input" value="{{room}}"style='height:75rpx;  margin-left:13rpx; text-align:left' type="number" placeholder="室" bindinput="room"/>
+    </view>
+  </view>
+
+   
+   
+
+    <view  class='inputview' style="flex:1; margin-top:70rpx; margin-left:30rpx; margin-right:30rpx">
+      <input class="input" value="{{phonenumber}}"style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="手机号码" bindinput="phonenumber" />
     </view>
   </view>
 
 
-    <!--view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
-      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="住址" bindinput="searchbuilding" />
-    </view-->
-
-    <view  class='inputview' style="flex:1; margin-top:80rpx; margin-left:30rpx; margin-right:30rpx">
-      <input class="input" style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="手机号码" bindinput="phonenumber" />
-    </view>
-  </view>
-
-
-  <view class='searchbutton' style="margin-top:5%">
-    <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 80rpx; border-radius: 40rpx" type="primary" bindtap="addinfo" >添加信息</button>
-    <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 80rpx; border-radius: 40rpx" type="primary" bindtap="saoma">扫描二维码</button>
+  <view class='searchbutton'>
+    <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 70rpx; border-radius: 40rpx" type="primary" bindtap="addinfo" >添加信息</button>
+    <button style="margin-left: 15rpx; margin-right: 15rpx; margin-top: 70rpx; border-radius: 40rpx" type="primary" bindtap="saoma">扫描二维码</button>
   </view>
 </view>

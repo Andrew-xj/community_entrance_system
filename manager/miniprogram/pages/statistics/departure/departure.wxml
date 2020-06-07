@@ -3,9 +3,13 @@
     <text >今日出入情况</text>
   </view>
 
-  <view class='history' style="margin-top:5%; padding-bottom:100%; margin-left:40rpx; margin-right:40rpx">
-    <view>
-    
+  <view class='history' style="margin-top:5%; padding-bottom:100%; margin-left:40rpx; margin-right:34rpx">
+    <view class='records'>
+      <block wx:for="{{records}}">
+        <view class='details' >
+          <text class="textfont">{{item}}</text>
+        </view>
+      </block>
     </view>
   </view>
 </view>

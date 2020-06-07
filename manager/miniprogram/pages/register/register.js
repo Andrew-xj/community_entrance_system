@@ -14,6 +14,7 @@ Page({
     building:'',
     unit:'',
     room:'',
+    xiaoqu:'',
     phonenumber:''
   },
 
@@ -42,23 +43,27 @@ Page({
     wx.scanCode({
       success: (res) => {
         console.log(res)
-        this.show = "result:" + res.result + " type" + res.scanType;
+        var scanresult = JSON.stringify(res.result).split("\\n")
         that.setData({
-          show: this.show,
-          name: res.result,
-          address: res.charSet
+          name: scanresult[0].replace(/\"/g, "").slice(4),
+          phonenumber: scanresult[1].replace(/\"/g, "").slice(3),
+          xiaoqu:scanresult[2].replace(/\"/g, "").slice(3),
+          building: scanresult[3].replace(/\"/g, "").slice(3),
+          unit:scanresult[4].replace(/\"/g, "").slice(3),
+          room:scanresult[5].replace(/\"/g, "").slice(3),
         })
+        console.log(this.data)
         wx.showToast({
           title: 'success',
           icon: 'sc',
           duration: 2000
         })
-        var i = 0;
-        while (1) {
-          i++;
-          if (i == 1500000000) break;
-        }
-        this.saoma()
+        // var i = 0;
+        // while (1) {
+        //   i++;
+        //   if (i == 1500000000) break;
+        // }
+        //this.saoma()
       },
       fail: (res) => {
         console.log(res)

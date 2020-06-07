@@ -1,6 +1,5 @@
 var app = getApp()
 var scanresult
-
 Page({
   data: {
     date:'',
@@ -40,52 +39,120 @@ Page({
         })
         if(that.data.inandout.slice(9)=='out'){
           that.addrecord()
+          that.adddays()
         }
         else if(that.data.inandout.slice(9)=='in'){
-          console.log('jud')
           that.updaterecord()
+          that.adddaysofin()
         }
-        this.querytoday()
         wx.showToast({
           title: 'success',
           icon: 'sc',
           duration: 2000
         })
-        var i = 0;
-        while (1) {
-          i++;
-          if (i == 1500000000) break;
-        }
-        this.saoma()
+        // var i = 0;
+        // while (1) {
+        //   i++;
+        //   if (i == 1500000000) break;
+        // }
+        //this.saoma()
       },
       fail: (res) => {
         console.log(res)
       },
     })
   },
-  querytoday:function(){
-    const db=wx.cloud.database()
+  // querytoday:function(){
+  //   const db=wx.cloud.database()
+  //   db.collection('date').where({
+  //     date: scanresult[0].slice(6)
+  //   }).get({
+  //     success:function(res){
+  //       console.log(res)
+  //       console.log(scanresult[0].slice(6))
+  //     }
+  //   })
+  // },
+  adddaysofin:function(){
+    var curdate = scanresult[0].slice(6)
+    console.log('curdate' + curdate)
+    const db = wx.cloud.database()
+    const _ = db.command
     db.collection('date').where({
       date: scanresult[0].slice(6)
-    }).get({
-      success:function(res){
-        console.log(res)
-        console.log(scanresult[0].slice(6))
+    }).get().then(res => {
+      if (res.data.length == 0) {
+        
+
+      }
+      else {
+        console.log('suc to find the curday')
+        db.collection('date').doc(res.data[0]._id).update({
+          data: {
+            incount: _.inc(1)
+          },
+          success: (res) => {
+            console.log('suc to add a day-count')
+          }
+        })
       }
     })
   },
   adddays:function(){
-    var curdate = new Date().toLocaleDateString();
+    var curdate = scanresult[0].slice(6)
+    console.log('curdate'+curdate)
     const db=wx.cloud.database()
     const _=db.command
-    db.collection('date').doc(scanresult[0].slice(6)).update({
-      data:{
-        count:5
-      },
-      success:function(res){
-        console.log('success to update')
+    db.collection('date').where({
+      date: scanresult[0].slice(6)
+    }).get().then(res=>{
+      if(res.data.length==0){
+        console.log('didnt find the curday, try to add')
+        db.collection('date').add({
+          data:{
+            date:scanresult[0].slice(6),
+            outcount: 1,
+            incount:1
+          }
+
+        })
+        console.log('suc to add a new-day')
+      }
+      else{
+        console.log('suc to find the curday')
+        db.collection('date').doc(res.data[0]._id).update({
+          data:{
+            outcount:_.inc(1)
+          },
+          success:(res)=>{
+            console.log('suc to add a day-count')
+          }
+        })
       }
     })
+    //({
+      // success:function(res){
+      //   console.log('suc to find the curday')
+      //   db.collection('date').doc(res.data[0]._id).update({
+      //     data:{
+      //       count:10
+      //     },
+      //     success:(res)=>{
+      //       console.log('suc to add a day-count')
+      //     }
+      //   })
+      // },
+      // fail:function(){
+      //   console.log('didnt find the curday,try to add')
+      //   db.collection('date').add({
+      //     data:{
+      //       date: scanresult[0].slice(6),
+      //       count:1
+      //     }
+      //   }),
+      //   console.log('suc to add')
+      // }
+    //})
   },
   updaterecord:function(){
     const db=wx.cloud.database()

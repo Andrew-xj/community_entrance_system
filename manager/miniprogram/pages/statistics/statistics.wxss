@@ -9,14 +9,17 @@
   margin-top: 40rpx;
   height: 140rpx;
   width: 100%;
-  background: #fff;
+  background: rgb(250, 239, 229);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-left: none;
   border-right: none;
   transition: all 300ms ease;
 } 
 .canvas {
-    width: 800rpx;
-    height: 1000rpx;
+    width: 90vw;
+    height: 55vh;
+}
+.textfont{
+  font-size: 40rpx
 }
 
