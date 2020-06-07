@@ -5,6 +5,9 @@
 			<open-data type="userAvatarUrl"></open-data>
 		</view>
 	</view>
+	<view class='ins'>
+		<text>个人信息</text>
+	</view>
 	<view class='middle'>
 		<view class='bar'>
 			<view class='text'>姓名：</view>

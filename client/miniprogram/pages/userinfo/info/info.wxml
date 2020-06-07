@@ -1,5 +1,8 @@
 <!--pages/userinfo/info/info.wxml-->
 
 <view class='background'>
+	<view class='ins'>
+		<text>个人信息二维码</text>
+	</view>
 	<image mode='aspectFit' src="{{ImagePath}}"></image>
 </view>

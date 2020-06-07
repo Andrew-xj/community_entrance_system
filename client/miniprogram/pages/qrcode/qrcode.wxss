@@ -46,7 +46,6 @@
 .qrcode {
   height: 60vh;
   width: 100%;
-  background-color: white;
 }
 
 /* 背景 */

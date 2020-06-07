@@ -8,31 +8,34 @@
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarBackgroundColor": "#fddfb8",
+    "navigationBarTitleText": "社区进出门管理系统",
     "navigationBarTextStyle": "black"
   },
   "tabBar":{
     "position":"bottom",
     "borderStyle":"white",
+    "color":"black",
+    "selectedColor": "#569911",
+    "backgroundColor": "#fdf8f0",
     "list":[
       {
         "pagePath":"pages/record/record",
         "text":"出行记录",
-        "iconPath":"",
-        "selectedIconPath":""
+        "iconPath":"./icon/record_off.png",
+        "selectedIconPath":"./icon/record_on.png"
       },
       {
         "pagePath":"pages/qrcode/qrcode",
         "text":"二维码",
-        "iconPath":"",
-        "selectedIconPath":""
+        "iconPath":"./icon/qrcode_off.png",
+        "selectedIconPath":"./icon/qrcode_on.png"
       },
       {
         "pagePath":"pages/userinfo/userinfo",
         "text":"用户信息",
-        "iconPath":"",
-        "selectedIconPath":""
+        "iconPath":"./icon/userinfo_off.png",
+        "selectedIconPath":"./icon/userinfo_on.png"
       }
     ]
   },
