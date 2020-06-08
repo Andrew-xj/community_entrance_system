@@ -1,29 +1,24 @@
 <view class="container">
-  <view>
-    <button type="primary" bindtap="saoma" id="scan">S C A N</button>
+  <view class='info'>
+    <text>人员信息：</text>
   </view>
-  <view class="list-item">
-    <!--text class="list-item">日期：</text-->
-    <view>{{date}}</view>
-  </view>
-  <view class="list-item">
-    <!--text class="list-item">时间：</text-->
-    <view>{{time}}</view>
-  </view>
-  <view class="list-item">
-    <!--text class="list-item">姓名：</text-->
-    <view>{{name}}</view>
-  </view>
-  <view class="list-item">
-    <!--text class="list-item">联系电话：</text-->
-    <view>{{phonenumber}}</view>
-  </view>
-  <view class="list-item">
-    <!--text class="list-item">住址：</text-->
-    <view>{{address}}</view>
-  </view>
-  <view> 
-    <!--text class="list-item">能否出门</text-->
-    <view>{{access}}</view>
-  </view>
+	<view class='list-item'>
+		<!--text class="list-item">日期：</text-->
+		<view>{{date}}</view>
+		<!--text class="list-item">时间：</text-->
+		<view>{{time}}</view>
+		<!--text class="list-item">姓名：</text-->
+		<view>{{name}}</view>
+		<!--text class="list-item">联系电话：</text-->
+		<view>{{phonenumber}}</view>
+		<!--text class="list-item">住址：</text-->
+		<view>{{address}}</view>
+		<view>
+			<!--text class="list-item">能否出门</text-->
+			<view>是否开门：{{door}}</view>
+		</view>
+	</view>
+	<view class='btn'>
+		<button type="primary" bindtap="saoma" id="scan">S C A N</button>
+	</view>
 </view>
