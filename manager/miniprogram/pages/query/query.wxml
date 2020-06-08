@@ -40,9 +40,13 @@
     <text>历史记录</text>
   </view>
 
-  <view class='history' style="margin-top:5%; padding-bottom:85%; margin-left:40rpx; margin-right:40rpx">
-    <view>
-      <text wx:if="{{queryResult}}">{{queryResult}}</text>
+  <view class='history' style="margin-top:5%; padding-bottom:85%; margin-left:40rpx; margin-right:34rpx">
+    <view class='records'>
+      <block wx:for="{{records}}">
+        <view class='details'>
+          <text class='text-font'>{{item}}</text>
+        </view>
+      </block>
     </view>
   </view>
 

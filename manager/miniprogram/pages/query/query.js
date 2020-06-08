@@ -7,7 +7,8 @@ Page({
     room: '',
     unit: '',
     name:'',
-    queryResult:'',
+    address:'',
+    records: []
   },
 
 
@@ -29,52 +30,67 @@ Page({
     this.data.name = e.detail.value;
   },
   
-
+  
   searchname: function(){
-    console.log('姓名：',this.data.name);
+    var that =this
+    var record = []
     const db = wx.cloud.database()
-    db.collection('person').where({
+    db.collection('records').where({
       name:this.data.name
     })
     .get()
     .then(res=> {
-      if(res.data.length==0){
+      if (res.data.length == 0) {
         console.log('no ralated records')
       }
-      else{
-        this.setData({
-          queryResult: JSON.stringify(res.data)
+      else {
+        console.log(res)
+        for (var j = 0; j < res.data.length; j++) {
+          record.push(res.data[j].name + '  ' + res.data[j].date + '  ' + res.data[j].time)
+        }
+        that.setData({
+          records: record
         })
-        console.log('success to query')
-        console.log(res.data)
       }
     })
   },
 
   chaxun: function () {
-    console.log('楼号:', this.data.building);
-    console.log('单元:', this.data.unit);
-    console.log('室:', this.data.room);
+    var that = this
 
-    const db = wx.cloud.database()
-    db.collection('person').where({
-      building:parseInt(this.data.building),
-      unit:parseInt(this.data.unit),
-      room:parseInt(this.data.room)
-    })
-      .get()
-      .then(res => {
-        if (res.data.length == 0) {
-          console.log('no ralated records')
-        }
-        else {
-          this.setData({
-            queryResult: JSON.stringify(res.data)
-          })
-          console.log('success to query')
-          console.log(res.data)
-        }
+    if(that.data.unit==''){
+      that.setData({
+        address: '明丰公寓' +that.data.building+'栋'+that.data.room+"室"
       })
+      console.log(that.data.address)
+    }
+    else{
+      that.setData({
+        address: '明丰公寓'+that.data.building + '栋' + that.data.unit + '单元' + that.data.room + "室"
+      })
+      console.log(that.data.address)
+    }
+    var record=[]
+    const db = wx.cloud.database()
+    const _=db.command
+    db.collection('records').where({
+      address:that.data.address
+    })
+    .get()
+    .then(res => {
+      if (res.data.length == 0) {
+        console.log('no ralated records')
+      }
+      else {
+        console.log(res)
+        for(var j=0;j<res.data.length;j++){
+          record.push(res.data[j].name+'  '+res.data[j].date+'  '+res.data[j].time)
+        }
+        that.setData({
+          records:record
+        })
+      }
+    })
 
     // const db=wx.cloud.database()
     // db.collection('person').where({

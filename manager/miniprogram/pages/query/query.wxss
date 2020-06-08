@@ -19,3 +19,26 @@
   border:  0.5px solid black;
   border-radius: 15rpx;
 }
+.textfont{
+  font-size: 55rpx
+}
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 100rpx;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+} 
+.records{
+  height: 70vh;
+  width:90vw;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
