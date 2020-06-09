@@ -118,8 +118,8 @@ Page({
         db.collection('date').add({
           data: {
             date: scanresult[0].slice(6),
-            outcount: 1,
-            incount: 1
+            count: 1,
+            
           }
 
         })

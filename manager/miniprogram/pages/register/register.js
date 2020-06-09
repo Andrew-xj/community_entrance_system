@@ -76,6 +76,11 @@ Page({
   },
 
   addinfo: function () {
+    wx.showToast({
+      title:'添加成功',
+      icon:'success',
+      duration:2000
+    })
     const db = wx.cloud.database()
     db.collection('person').add({
       data: {

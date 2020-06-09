@@ -34,7 +34,7 @@ Page({
     // 设置二维码预置参数
     const ctx = wx.createCanvasContext('canvas')
     const rate = wx.getSystemInfoSync().windowWidth / 750
-    var qrcodeWidth = rate * 400
+    var qrcodeWidth = rate * 375
     that.setData({
       qrcodeWidth: qrcodeWidth
     })
@@ -47,18 +47,18 @@ Page({
       correctLevel: QRCode.CorrectLevel.H
     })
     // 保存上传部分
-    if (this.data.tag) {  // 判断是否已经含有信息
-      if (this.data.name != "" &&
-        this.data.phone != null &&
-        this.data.neighbourhood != "" &&
-        this.data.address.block != null &&
-        this.data.address.room != null) {   // 判断输入内容是否符合条件
+    if (that.data.tag) {  // 判断是否已经含有信息
+      if (that.data.name != "" &&
+        that.data.phone != null &&
+        that.data.neighbourhood != "" &&
+        that.data.address.block != null &&
+        that.data.address.room != null) {   // 判断输入内容是否符合条件
         // 生成二维码
         var content = "姓名：" + that.data.name
           + "\n手机：" + that.data.phone
           + "\n小区：" + that.data.neighbourhood
-          + "\n楼号：" + that.data.address.block 
-          + "\n单元：" + that.data.address.unit 
+          + "\n楼号：" + that.data.address.block
+          + "\n单元：" + that.data.address.unit
           + "\n室号：" + that.data.address.room
         var fileName = that.data.name + '_' + that.data.phone + '.png'
         var ImagePath
@@ -105,57 +105,83 @@ Page({
     else {
       // 生成二维码
       var content = "姓名：" + that.data.name
-      + "\n手机：" + that.data.phone
-      + "\n小区：" + that.data.neighbourhood
-      + "\n楼号：" + that.data.address.block 
-      + "\n单元：" + that.data.address.unit 
-      + "\n室号：" + that.data.address.room
+        + "\n手机：" + that.data.phone
+        + "\n小区：" + that.data.neighbourhood
+        + "\n楼号：" + that.data.address.block
+        + "\n单元：" + that.data.address.unit
+        + "\n室号：" + that.data.address.room
       var fileName = that.data.name + '_' + that.data.phone + '.png'
       var ImagePath;
       qrcode.makeCode(content)
       // 二维码导出成图片
-      qrcode.exportImage(function (path) {
-        ImagePath = path
-        // 删除云存储器中原有的二维码图片
-        wx.cloud.deleteFile({
-          fileList: [that.data.fileID],
-          success: res => {
-          },
-          fail: console.error
-        })
-        // 上传新的二维码图片到云存储器
-        wx.cloud.uploadFile({
-          cloudPath: fileName,
-          filePath: ImagePath,
-          success: res => {
-            that.setData({
-              fileID: res.fileID
-            })
-          }
-        })
-      })
-      // 更新数据库中用户信息
-      db.collection('resident').doc(this.data.docID).set({
-        data: {
-          "name": this.data.name,
-          "phone": this.data.phone,
-          "neighbourhood": this.data.neighbourhood,
-          "address": {
-            "block": this.data.address.block,
-            "unit": this.data.address.unit,
-            "room": this.data.address.room
-          },
-          "tag": false,
-          "fileID": this.data.fileID
-        },
+      //绘制图片
+      ctx.draw(false, wx.canvasToTempFilePath({
+        canvasId: 'canvas',
         success: function (res) {
-          wx.showToast({
-            title: '信息更新成功',
-            icon: 'success',
-            duration: 2000
+          var ImagePath = res.tempFilePath;
+          console.log(res.tempFilePath);
+          // 删除云存储器中原有的二维码图片
+          wx.cloud.deleteFile({
+            fileList: [that.data.fileID],
+            success: res => {
+              console.log(res)
+              // 上传新的二维码图片到云存储器
+              wx.cloud.uploadFile({
+                cloudPath: fileName,
+                filePath: ImagePath,
+                success: res => {
+                  console.log(res)
+                  that.setData({
+                    fileID: res.fileID
+                  })
+                  // 更新数据库中用户信息
+                  db.collection('resident').doc(that.data.docID).set({
+                    data: {
+                      "name": that.data.name,
+                      "phone": that.data.phone,
+                      "neighbourhood": that.data.neighbourhood,
+                      "address": {
+                        "block": that.data.address.block,
+                        "unit": that.data.address.unit,
+                        "room": that.data.address.room
+                      },
+                      "tag": false,
+                      "fileID": that.data.fileID
+                    },
+                    success: function (res) {
+                      wx.showToast({
+                        title: '信息更新成功',
+                        icon: 'success',
+                        duration: 2000
+                      })
+                      console.log(res)
+                    },
+                    fail: (err) => {
+                      console.log(err)
+                      wx.showToast({
+                        title: '上传失败！\r\n请重试',
+                        icon: 'none',
+                        duration: 2000
+                      })
+                    }
+                  })
+                }
+              })
+            },
+            fail: (err) => {
+              console.log(err)
+              wx.showToast({
+                title: '上传失败！\r\n请重试',
+                icon: 'none',
+                duration: 2000
+              })
+            }
           })
+        },
+        fail: function (res) {
+          console.log(res);
         }
-      })
+      }));
     }
   },
 
@@ -178,6 +204,7 @@ Page({
       phone: _.neq("")
     }).get({
       success: function (res) {
+        console.log(res)
         if (res.data.length != 0) {   // 若查到数据，则保存数据
           that.setData({
             name: res.data[0].name,

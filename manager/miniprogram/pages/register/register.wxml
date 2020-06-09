@@ -13,7 +13,7 @@
     </view>
 
     <view  class='inputview' style="flex:1; margin-top:70rpx; margin-left:30rpx; margin-right:30rpx">
-      <input class="input" value="{{xiaoqu}}"style='height:75rpx; margin-left:13rpx; text-align:left' type="number" placeholder="小区名称" bindinput="xiaoqu" />
+      <input class="input" value="{{xiaoqu}}"style='height:75rpx; margin-left:13rpx; text-align:left' type="text" placeholder="小区名称" bindinput="xiaoqu" />
     </view>
 
   <view class='content_r' style="margin-top:70rpx;">

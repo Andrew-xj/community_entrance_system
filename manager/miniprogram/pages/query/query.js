@@ -58,18 +58,11 @@ Page({
   chaxun: function () {
     var that = this
 
-    if(that.data.unit==''){
-      that.setData({
-        address: '明丰公寓' +that.data.building+'栋'+that.data.room+"室"
-      })
-      console.log(that.data.address)
-    }
-    else{
-      that.setData({
-        address: '明丰公寓'+that.data.building + '栋' + that.data.unit + '单元' + that.data.room + "室"
-      })
-      console.log(that.data.address)
-    }
+    
+    
+    that.setData({
+      address: '明丰公寓'+that.data.building + '栋' + that.data.unit + '单元' + that.data.room + "室"
+    })
     var record=[]
     const db = wx.cloud.database()
     const _=db.command
