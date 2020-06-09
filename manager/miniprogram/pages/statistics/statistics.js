@@ -36,28 +36,11 @@ Page({
     //计算屏幕宽度比列
     windowW = this.data.imageWidth / 375;
     console.log(windowW);
-
-    //var date1 = Date.parse('2020/05/14');
-    // var currenttimestamp = new Date().getTime();
-    // var idays;
-    // idays=Math.floor((currenttimestamp-date1)/(24*3600*1000));
-    // console.log(idays);
-    //var mydate=util.formatTime(new Date());
-
-    //console.log(mydate)
-    //console.log(mydate.replace(/-/g,"/"));
-    // var isdate=Date.parse(mydate);
-    // console.log(isdate);
-
     var curdate = new Date()
     for (var i=0;i<7;i++){
       cpreviousdate[i]=new Date(curdate.getTime()+24*60*60*1000*(i-7))
       cpreviousdate[i]=util.formatTime(cpreviousdate[i])
       previousdate[i]=cpreviousdate[i].slice(5)
-      //previousdate[i]=this.adddays(mydate,i-7);
-      //previousdate[i]=d.setDate(d.getDate()+(i-7))
-      //previousdate[i]=util.formatTime(previousdate[i])
-      //previousdate[i]=previousdate[i].slice(5);
     }
     this.setData({
       cpreviousdate:cpreviousdate
@@ -80,7 +63,6 @@ Page({
         }
       })
     console.log(cpreviousdate)
-    //console.log(previousdate)
   },
   getnum:function(dates){
     
@@ -138,20 +120,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // for (var i=0;i<7;i++){
-    //   this.getnum(this.data.cpreviousdate)
-    // }
     this.getnum(this.data.cpreviousdate)
-    
-    //this.getnum(this.data.cpreviousdate[0])
-    //this.get_prenum(cpreviousdate),
-    // for(var i=0;i<7;i++){
-    //   number[i]=this.getnum(cpreviousdate[i])
-    // }
-    // columnCanvas
-
-    
-
-
   },
 })

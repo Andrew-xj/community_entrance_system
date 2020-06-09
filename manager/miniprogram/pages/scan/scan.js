@@ -13,8 +13,6 @@ Page({
     counter: null,
   },
 
-
-
   saoma: function () {
     var that = this;
     var show;
@@ -69,17 +67,7 @@ Page({
       },
     })
   },
-  // querytoday:function(){
-  //   const db=wx.cloud.database()
-  //   db.collection('date').where({
-  //     date: scanresult[0].slice(6)
-  //   }).get({
-  //     success:function(res){
-  //       console.log(res)
-  //       console.log(scanresult[0].slice(6))
-  //     }
-  //   })
-  // },
+
   adddaysofin: function () {
     var curdate = scanresult[0].slice(6)
     console.log('curdate' + curdate)
@@ -137,30 +125,8 @@ Page({
         })
       }
     })
-    //({
-    // success:function(res){
-    //   console.log('suc to find the curday')
-    //   db.collection('date').doc(res.data[0]._id).update({
-    //     data:{
-    //       count:10
-    //     },
-    //     success:(res)=>{
-    //       console.log('suc to add a day-count')
-    //     }
-    //   })
-    // },
-    // fail:function(){
-    //   console.log('didnt find the curday,try to add')
-    //   db.collection('date').add({
-    //     data:{
-    //       date: scanresult[0].slice(6),
-    //       count:1
-    //     }
-    //   }),
-    //   console.log('suc to add')
-    // }
-    //})
   },
+  
   updaterecord: function () {
     const db = wx.cloud.database()
     db.collection('records').where({
@@ -178,6 +144,7 @@ Page({
       }
     })
   },
+  
   addrecord: function () {
     const db = wx.cloud.database()
     db.collection('records').add({
